@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM cost calculator — knows what time it is</title>
+<meta name="description" content="LLM API cost calculator for coding agents. Handles DeepSeek peak/off-peak billing live, the long-context cliff, and a measured cache-heavy token mix. Prices refreshed daily.">
+<link rel="canonical" href="https://xyzs996.github.io/llm-cost-calculator/">
+<style>
+:root{--fg:#16181d;--dim:#5b6472;--line:#e3e6ea;--bg:#fff;--accent:#0b57d0;--peak:#b3261e;--off:#146c2e;--card:#f7f8fa}
+@media (prefers-color-scheme:dark){:root{--fg:#e6e8eb;--dim:#9aa3af;--line:#2b2f36;--bg:#12141a;--accent:#7cacf8;--peak:#f2b8b5;--off:#6dd58c;--card:#191c22}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif}
+main{max-width:940px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:1.6rem;margin:0 0 .3em;letter-spacing:-.01em}
+h2{font-size:1.05rem;margin:2em 0 .6em;letter-spacing:-.005em}
+.sub{color:var(--dim);margin:0 0 1.6em;max-width:62ch}
+a{color:var(--accent)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+label{display:block;font-size:.82rem;color:var(--dim);margin-bottom:4px}
+input,select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:var(--bg);color:var(--fg);font:inherit;font-size:.95rem}
+input[type=number]{font-variant-numeric:tabular-nums}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.total{font-size:2rem;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin:.1em 0}
+.row{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dotted var(--line);font-size:.9rem}
+.row:last-child{border-bottom:0}
+.row span:last-child{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:600}
+.pill.peak{background:color-mix(in srgb,var(--peak) 16%,transparent);color:var(--peak)}
+.pill.off{background:color-mix(in srgb,var(--off) 16%,transparent);color:var(--off)}
+.note{font-size:.84rem;color:var(--dim)}
+.warn{border-left:3px solid var(--peak);padding-left:12px;margin:12px 0;font-size:.88rem}
+.presets button{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;font:inherit;font-size:.83rem;cursor:pointer;margin:0 6px 6px 0}
+.presets button:hover{border-color:var(--accent);color:var(--accent)}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:.88rem;color:var(--dim)}
+footer a{color:var(--accent)}
+code{background:var(--card);padding:1px 5px;border-radius:4px;font-size:.86em}
+table{border-collapse:collapse;width:100%;font-size:.86rem;margin-top:8px}
+th,td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line)}
+td:not(:first-child),th:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<main>
+<h1>LLM cost calculator</h1>
+<p class="sub">Cost for one job, or for a month of them. It differs from most calculators in three ways: it applies <strong>DeepSeek's peak/off-peak rate right now</strong> instead of an average, it treats the long-context tier as the <strong>cliff it actually is</strong>, and its default token mix is <strong>measured from a real coding agent</strong> rather than guessed. Prices refresh daily from the table below.</p>
+
+<div id="status" class="note">Loading prices…</div>
+
+<section id="app" hidden>
+  <div class="grid">
+    <div><label for="model">Model</label><select id="model"></select></div>
+    <div><label for="runs">Requests</label><input id="runs" type="number" min="1" step="1" value="1"></div>
+  </div>
+
+  <h2>Tokens per request</h2>
+  <div class="presets" id="presets"></div>
+  <div class="grid">
+    <div><label for="cacheRead">Cached input (cache hit)</label><input id="cacheRead" type="number" min="0" step="1000" value="382560"></div>
+    <div><label for="cacheMiss">Fresh input (cache miss)</label><input id="cacheMiss" type="number" min="0" step="1000" value="16280"></div>
+    <div><label for="output">Output</label><input id="output" type="number" min="0" step="100" value="1160"></div>
+  </div>
+  <p class="note" id="mixnote"></p>
+
+  <h2>Cost</h2>
+  <div class="card">
+    <div id="phaseline"></div>
+    <div class="total" id="total">—</div>
+    <div id="breakdown"></div>
+    <div id="cliff"></div>
+    <div id="waitline"></div>
+  </div>
+
+  <div id="peaktable"></div>
+</section>
+
+<footer>
+  <p id="prov"></p>
+  <p><a href="https://xyzs996.github.io/llm-api-pricing/prices.html">The full price table</a> · <a href="https://github.com/xyzs996/deepseek-peak-offpeak-vectors">peak/off-peak conformance vectors</a> · <a href="https://xyzs996.github.io/llm-api-pricing/">what these costs do to a small budget, in practice</a> · <a href="https://github.com/xyzs996/llm-cost-calculator">source</a></p>
+  <p>No tracking, no analytics, no build step. One HTML file that fetches a JSON price table. Wrong number? <a href="https://github.com/xyzs996/llm-cost-calculator/issues/new">Tell me which one.</a></p>
+</footer>
+</main>
+
+<script>
+"use strict";
+const SOURCES = [
+  "https://cdn.jsdelivr.net/gh/xyzs996/llm-api-pricing@main/data/prices.json",
+  "https://raw.githubusercontent.com/xyzs996/llm-api-pricing/main/data/prices.json"
+];
+const $ = id => document.getElementById(id);
+const fmtUSD = n => n >= 1 ? "$" + n.toFixed(2) : n >= 0.01 ? "$" + n.toFixed(4) : "$" + n.toFixed(6);
+const hhmm = t => { const [h, m] = t.split(":").map(Number); return h * 60 + m; };
+let DATA = null;
+
+/* ---- peak/off-peak -------------------------------------------------------
+   The weekday is read off the SHIFTED instant. Reading it off the raw UTC
+   instant is the classic bug here: the Beijing weekend runs 16:00Z Friday to
+   16:00Z Sunday, the two calendars disagree only over 16:00-24:00 UTC, and
+   both of DeepSeek's peak windows sit clear of that stretch — so the wrong
+   version passes every test you can write against the live schedule.
+   Vectors that do pin it: github.com/xyzs996/deepseek-peak-offpeak-vectors */
+function offsetHours(vc) { return (vc.weekend_timezone || "Asia/Shanghai") === "Asia/Shanghai" ? 8 : 0; }
+
+function phaseAt(when, vc) {
+  if (!vc || !vc.peak_windows_utc) return null;
+  const shifted = new Date(when.getTime() + offsetHours(vc) * 3600e3);
+  const dow = shifted.getUTCDay();                       // 0 Sun … 6 Sat
+  const effective = vc.weekend_off_peak_from_utc ? Date.parse(vc.weekend_off_peak_from_utc) : Infinity;
+  if (when.getTime() >= effective && (dow === 0 || dow === 6)) return "offpeak";
+  const mins = when.getUTCHours() * 60 + when.getUTCMinutes();
+  for (const w of vc.peak_windows_utc) {
+    const [s, e] = w.split("-");
+    if (mins >= hhmm(s) && mins < hhmm(e)) return "peak";
+  }
+  return "offpeak";
+}
+
+/* Both sides of a weekend-interior window edge are off-peak, so a countdown
+   that stops at the next edge reaches zero with nothing changing. Compare the
+   phase either side of each candidate instead. */
+function nextChange(when, vc) {
+  const now = phaseAt(when, vc);
+  const edges = new Set();
+  for (const w of vc.peak_windows_utc) w.split("-").forEach(x => edges.add(hhmm(x)));
+  edges.add(((24 - offsetHours(vc)) % 24) * 60);         // local midnight
+  const sorted = [...edges].sort((a, b) => a - b);
+  const day = Date.UTC(when.getUTCFullYear(), when.getUTCMonth(), when.getUTCDate());
+  for (let ahead = 0; ahead < 10; ahead++) {
+    for (const edge of sorted) {
+      const c = new Date(day + ahead * 864e5 + edge * 60e3);
+      if (c <= when) continue;
+      if (phaseAt(c, vc) !== now) return { at: c, phase: phaseAt(c, vc) };
+    }
+  }
+  return null;
+}
+
+function humanGap(ms) {
+  const m = Math.round(ms / 60000), h = Math.floor(m / 60), d = Math.floor(h / 24);
+  if (d >= 1) return d + "d " + (h % 24) + "h";
+  if (h >= 1) return h + "h " + String(m % 60).padStart(2, "0") + "m";
+  return m + "m";
+}
+
+function beijingClock(vc) {
+  const s = new Date(Date.now() + offsetHours(vc) * 3600e3);
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[s.getUTCDay()] + " " + String(s.getUTCHours()).padStart(2, "0") + ":" + String(s.getUTCMinutes()).padStart(2, "0");
+}
+
+/* ---- rates --------------------------------------------------------------- */
+function ratesFor(row, phase) {
+  const vc = DATA.vendor_checked && DATA.vendor_checked[row.id];
+  if (vc && phase && vc[phase === "peak" ? "peak" : "off_peak"]) {
+    const r = vc[phase === "peak" ? "peak" : "off_peak"];
+    return { cacheRead: r.cache_read, input: r.input, output: r.output, from: "vendor" };
+  }
+  return {
+    cacheRead: Number(row.cached_input_per_million) || 0,
+    input: Number(row.input_per_million) || 0,
+    output: Number(row.output_per_million) || 0,
+    from: "catalog"
+  };
+}
+
+/* The long-context tier is a cliff, not marginal pricing: once the prompt
+   reaches the threshold every token in the request bills at the long rate,
+   including the ones below it. DATA.long_context_pricing.note says so. */
+function longRates(row) {
+  if (!row.long_context_from) return null;
+  return {
+    from: Number(row.long_context_from),
+    cacheRead: Number(row.long_cached_input_per_million) || 0,
+    input: Number(row.long_input_per_million) || 0,
+    output: Number(row.long_output_per_million) || 0
+  };
+}
+
+function costOf(row, tokens, phase) {
+  const prompt = tokens.cacheRead + tokens.cacheMiss;
+  const lr = longRates(row);
+  const overCliff = !!(lr && prompt >= lr.from);
+  const r = overCliff ? lr : ratesFor(row, phase);
+  const parts = {
+    cacheRead: tokens.cacheRead * r.cacheRead / 1e6,
+    cacheMiss: tokens.cacheMiss * r.input / 1e6,
+    output: tokens.output * r.output / 1e6
+  };
+  return { total: parts.cacheRead + parts.cacheMiss + parts.output, parts, rates: r, overCliff, prompt };
+}
+
+/* ---- render -------------------------------------------------------------- */
+function tokens() {
+  return {
+    cacheRead: Math.max(0, Number($("cacheRead").value) || 0),
+    cacheMiss: Math.max(0, Number($("cacheMiss").value) || 0),
+    output: Math.max(0, Number($("output").value) || 0)
+  };
+}
+
+function render() {
+  const row = DATA.rows.find(r => r.id === $("model").value);
+  if (!row) return;
+  const runs = Math.max(1, Number($("runs").value) || 1);
+  const t = tokens();
+  const vc = DATA.vendor_checked && DATA.vendor_checked[row.id];
+  const now = new Date();
+  const phase = vc ? phaseAt(now, vc) : null;
+  const c = costOf(row, t, phase);
+
+  $("phaseline").innerHTML = vc
+    ? `<span class="pill ${phase === "peak" ? "peak" : "off"}">${phase === "peak" ? "PEAK rate" : "OFF-PEAK rate"}</span>
+       <span class="note"> &nbsp;${vc.vendor} bills by the clock — it is ${beijingClock(vc)} in ${vc.weekend_timezone || "Asia/Shanghai"} right now.</span>`
+    : `<span class="note">Flat rate — this model does not bill by time of day.</span>`;
+
+  $("total").textContent = fmtUSD(c.total * runs);
+
+  const line = (k, tok, rate, amt) =>
+    `<div class="row"><span>${k} — ${tok.toLocaleString()} × ${fmtUSD(rate)}/M</span><span>${fmtUSD(amt * runs)}</span></div>`;
+  $("breakdown").innerHTML =
+    line("Cached input", t.cacheRead, c.rates.cacheRead, c.parts.cacheRead) +
+    line("Fresh input", t.cacheMiss, c.rates.input, c.parts.cacheMiss) +
+    line("Output", t.output, c.rates.output, c.parts.output) +
+    (runs > 1 ? `<div class="row"><span><strong>${runs.toLocaleString()} requests</strong></span><span><strong>${fmtUSD(c.total * runs)}</strong></span></div>` : "");
+
+  const lr = longRates(row);
+  $("cliff").innerHTML = !lr ? "" : c.overCliff
+    ? `<div class="warn"><strong>Long-context rate applied.</strong> The prompt is ${c.prompt.toLocaleString()} tokens, at or above the ${lr.from.toLocaleString()} threshold, so <em>every</em> token in the request bills at the long rate — including the ones below the threshold. This is a cliff, not marginal pricing.</div>`
+    : `<div class="note" style="margin-top:10px">Long-context cliff at ${lr.from.toLocaleString()} prompt tokens; you are ${(lr.from - c.prompt).toLocaleString()} below it. Crossing it re-rates the whole request, not just the excess.</div>`;
+
+  if (vc && phase) {
+    const other = phase === "peak" ? "offpeak" : "peak";
+    const alt = costOf(row, t, other).total * runs;
+    const nx = nextChange(now, vc);
+    const when = nx ? `${humanGap(nx.at - now)} from now` : "—";
+    $("waitline").innerHTML = phase === "peak"
+      ? `<div class="note" style="margin-top:12px">Off-peak starts <strong>${when}</strong>. The same work then: <strong>${fmtUSD(alt)}</strong> — you would save ${fmtUSD(c.total * runs - alt)}.</div>`
+      : `<div class="note" style="margin-top:12px">Peak starts <strong>${when}</strong>. The same work then: <strong>${fmtUSD(alt)}</strong>.</div>`;
+    $("peaktable").innerHTML =
+      `<h2>${vc.vendor} rate card</h2><table><tr><th>Per 1M tokens</th><th>Off-peak</th><th>Peak</th></tr>` +
+      ["cache_read", "input", "output"].map(k =>
+        `<tr><td>${{cache_read: "Cached input", input: "Fresh input", output: "Output"}[k]}</td><td>${fmtUSD(vc.off_peak[k])}</td><td>${fmtUSD(vc.peak[k])}</td></tr>`).join("") +
+      `</table><p class="note">Peak windows ${vc.peak_windows_utc.join(" and ")} UTC on weekdays.` +
+      (vc.weekend_off_peak_from ? ` Whole weekends bill off-peak since ${vc.weekend_off_peak_from} (${vc.weekend_off_peak_from_utc}); the weekend runs ${(vc.weekend_edges_utc || []).join(" to ")}.` : "") +
+      ` Checked against <a href="${vc.vendor_page}">the vendor's own page</a> on ${vc.checked}.</p>`;
+  } else {
+    $("waitline").innerHTML = "";
+    $("peaktable").innerHTML = "";
+  }
+}
+
+function buildPresets() {
+  const mix = DATA.agent_token_mix;
+  const total = 400000;
+  const presets = [
+    { name: "Measured coding-agent mix", t: { cacheRead: Math.round(total * mix.cache_read), cacheMiss: Math.round(total * mix.cache_miss), output: Math.round(total * mix.output) } },
+    { name: "One-shot chat", t: { cacheRead: 0, cacheMiss: 2000, output: 800 } },
+    { name: "Long doc, no cache", t: { cacheRead: 0, cacheMiss: 200000, output: 4000 } },
+    { name: "Cache-warm loop", t: { cacheRead: 900000, cacheMiss: 5000, output: 2000 } }
+  ];
+  $("presets").innerHTML = presets.map((p, i) => `<button data-i="${i}">${p.name}</button>`).join("");
+  $("presets").onclick = e => {
+    const i = e.target.dataset.i;
+    if (i === undefined) return;
+    const t = presets[i].t;
+    $("cacheRead").value = t.cacheRead; $("cacheMiss").value = t.cacheMiss; $("output").value = t.output;
+    render();
+  };
+  $("mixnote").innerHTML = `The default is the measured mix: <strong>${(mix.cache_read * 100).toFixed(1)}% cache hit, ${(mix.cache_miss * 100).toFixed(1)}% miss, ${(mix.output * 100).toFixed(2)}% output</strong>, from ${mix.measured_tokens} of real coding-agent traffic (<a href="${mix.source}">measurement</a>, ${mix.measured}). ${mix.note}`;
+}
+
+async function boot() {
+  let err = null;
+  for (const url of SOURCES) {
+    try {
+      const res = await fetch(url, { cache: "no-cache" });
+      if (!res.ok) { err = url + " → HTTP " + res.status; continue; }
+      DATA = await res.json();
+      break;
+    } catch (e) { err = url + " → " + e.message; }
+  }
+  if (!DATA) { $("status").textContent = "Could not load the price table (" + err + "). The data is at " + SOURCES[1]; return; }
+
+  const withVendor = new Set(Object.keys(DATA.vendor_checked || {}));
+  const rows = DATA.rows.slice().sort((a, b) =>
+    (withVendor.has(b.id) - withVendor.has(a.id)) || a.model.localeCompare(b.model));
+  $("model").innerHTML = rows.map(r =>
+    `<option value="${r.id}">${r.model}${r.batch ? " (batch)" : ""}${withVendor.has(r.id) ? " — bills by the clock" : ""}</option>`).join("");
+  const firstClock = rows.find(r => withVendor.has(r.id));
+  if (firstClock) $("model").value = firstClock.id;
+
+  buildPresets();
+  $("prov").innerHTML = `Prices from <a href="${DATA.source}">${DATA.source_name}</a>, checked ${DATA.checked}, plus vendor pages for the models that bill by the clock. Refreshed daily. Rounding and unlisted surcharges are yours to verify — this is a calculator, not a quote.`;
+  $("status").hidden = true; $("app").hidden = false;
+
+  ["model", "runs", "cacheRead", "cacheMiss", "output"].forEach(id => $(id).addEventListener("input", render));
+  render();
+  setInterval(render, 30000);   // the phase and the countdown move on their own
+}
+boot();
+</script>
+</body>
+</html>
