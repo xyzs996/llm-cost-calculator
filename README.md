@@ -9,6 +9,33 @@ No build step, no dependencies, no tracking, no analytics. Open the file and it
 fetches one JSON price table over a CDN. Save it and it works offline against
 whatever the table said last.
 
+<!-- price-table: 每天从价目表生成,别手改这一段 -->
+
+## What one request costs today, on all 60 models
+
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-08-22**. The 12 cheapest of 60:
+
+| $ per request | $ per month | Model | $ cache read | Clock |
+| --- | --- | --- | --- | --- |
+| **$0.0113** | $339.39 | Gemini 3.7 Flash `batch` | $0.0187 | flat |
+| **$0.0209** | $626.62 | DeepSeek V4 Pro 0423 | $0.0345 | peak/off-peak |
+| **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
+| **$0.0226** | $678.78 | Gemini 3.7 Flash | $0.0375 | flat |
+| **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
+| **$0.0292** | $876.89 | MiniMax M3 `batch` | $0.06 | flat |
+| **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
+| **$0.0367** | $1,101.46 | Kimi K2.5 | $0.07 | flat |
+| **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
+| **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
+| **$0.0461** | $1,383.66 | Gemini 3.5 Flash `batch` | $0.075 | flat |
+| **$0.0463** | $1,390.50 | Kimi K2.6 | $0.0912 | flat |
+
+`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 60 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
+
+The rows marked `peak/off-peak` bill by the clock, and the number above is the catalogue's single figure; the page applies whichever side is in force at the minute you ask, and tells you what waiting is worth. Long-context tiers are a cliff, not marginal pricing — the page re-rates the whole request the moment your prompt crosses the threshold.
+
+<!-- /price-table -->
+
 ## Three things it does that most cost calculators don't
 
 **1. It applies DeepSeek's peak/off-peak rate for right now, not an average.**
