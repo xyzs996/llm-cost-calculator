@@ -1,0 +1,24 @@
+# LLM Cost Calculator
+
+> One HTML page that turns a token count into a bill for 60 coding-agent models, using a price table refreshed daily. https://xyzs996.github.io/llm-cost-calculator/
+
+It holds no prices of its own. Every figure is read at load time from `data/prices.json` in xyzs996/llm-api-pricing, so it cannot go stale separately from the table. Prices are catalogue prices from the OpenRouter model list; models that bill by the clock are additionally checked against the vendor's own pricing page, with the date of that check carried in the data.
+
+## What it computes that a rate card does not
+
+- [Peak/off-peak billing, live](https://xyzs996.github.io/llm-cost-calculator/): DeepSeek bills half price off-peak. Peak is Beijing 09:00-12:00 and 14:00-18:00, i.e. 01:00-04:00 and 06:00-10:00 UTC. Since 2026-08-23 the whole Beijing weekend is off-peak. The page shows which phase you are in right now, the price in the other phase, and how long until it changes.
+- [The long-context cliff](https://xyzs996.github.io/llm-cost-calculator/): several models switch to a long-context rate once the prompt crosses a threshold, and the switch is a cliff, not marginal — every token in that request bills at the long rate, including the ones below the threshold. One token past Gemini 3.1 Pro Preview's 200,000 threshold takes a bill from $0.2060 to $0.4090.
+- [The agent token mix](https://xyzs996.github.io/llm-cost-calculator/): a coding agent re-reads its context every step, so 95.6% of the tokens it sends are cache reads, measured over 8.04B tokens. List input price is what every pricing table sorts by and it is not what an agent pays.
+
+## Correctness
+
+- [Conformance vectors](https://github.com/xyzs996/deepseek-peak-offpeak-vectors): a dated test table for the peak/off-peak rule, CC0. `test/check.mjs` in this repo downloads that table rather than vendoring it, so a change there re-checks this page's clock. 18/18 passing.
+- The weekend is bounded in Beijing time, not UTC: it runs 16:00Z Friday to 16:00Z Sunday. Both official peak windows sit clear of 16:00-24:00 UTC, so an implementation that reads the weekday off the unshifted instant passes every test written against the live schedule and only starts lying when a vendor moves a window past 16:00 UTC.
+
+## Elsewhere
+
+- [The full price table](https://xyzs996.github.io/llm-api-pricing/prices.html): all 60 models sortable, with the effective per-million cost under the measured agent mix.
+- [The machine-readable table](https://raw.githubusercontent.com/xyzs996/llm-api-pricing/main/data/prices.json): JSON, CC BY 4.0, refreshed daily. A CSV sits beside it.
+- [Field notes](https://xyzs996.github.io/llm-api-pricing/): write-ups on what these costs do to a small budget in practice, which is a different question from what the rate card says.
+
+MIT. Corrections welcome: https://github.com/xyzs996/llm-cost-calculator/issues/new
