@@ -58,7 +58,7 @@ td:not(:first-child),th:not(:first-child){text-align:right;font-variant-numeric:
 <body>
 <main>
 <h1>LLM cost calculator</h1>
-<p class="sub">Cost for one job, or for a month of them. It differs from most calculators in three ways: it applies <strong>DeepSeek's peak/off-peak rate right now</strong> instead of an average, it treats the long-context tier as the <strong>cliff it actually is</strong>, and its default token mix is <strong>measured from a real coding agent</strong> rather than guessed. Prices refresh daily from the table below.</p>
+<p class="sub">Cost for one job, or for a month of them — on the model you pick, and side by side with every other model on your own token mix. It differs from most calculators in three ways: it applies <strong>DeepSeek's peak/off-peak rate right now</strong> instead of an average, it treats the long-context tier as the <strong>cliff it actually is</strong>, and its default token mix is <strong>measured from a real coding agent</strong> rather than guessed. Prices refresh daily from the table below.</p>
 
 <div id="status" class="note">Loading prices…</div>
 
@@ -87,6 +87,7 @@ td:not(:first-child),th:not(:first-child){text-align:right;font-variant-numeric:
   </div>
 
   <div id="peaktable"></div>
+  <div id="compare"></div>
 
   <p class="ask">Did this answer the question you came with?
   <a href="https://github.com/xyzs996/llm-cost-calculator">A star on the repo</a>
@@ -268,6 +269,47 @@ function render() {
     $("waitline").innerHTML = "";
     $("peaktable").innerHTML = "";
   }
+
+  renderCompare(row, t, runs, c.total * runs);
+}
+
+function renderCompare(sel, t, runs, base) {
+  const now = new Date();
+  const all = DATA.rows.map(r => {
+    const vc = DATA.vendor_checked && DATA.vendor_checked[r.id];
+    const ph = vc ? phaseAt(now, vc) : null;
+    const c = costOf(r, t, ph);
+    return { r, ph, c, total: c.total * runs };
+  }).sort((a, b) => a.total - b.total);
+
+  const shown = all.slice(0, 12);
+  const mine = all.find(x => x.r.id === sel.id);
+  if (mine && !shown.includes(mine)) shown.push(mine);
+  const best = all[0];
+
+  const rel = x => {
+    if (x.r.id === sel.id) return "—";
+    if (!(base > 0)) return "—";
+    const k = x.total / base;
+    return k < 1 ? (1 / k).toFixed(1) + "\u00d7 cheaper" : k.toFixed(1) + "\u00d7 dearer";
+  };
+
+  $("compare").innerHTML =
+    "<h2>The same job on every other model</h2>" +
+    "<table><tr><th>Model</th><th>This job</th><th>vs. " + sel.model + "</th><th>Rate now</th></tr>" +
+    shown.map(x =>
+      `<tr${x.r.id === sel.id ? ' style="font-weight:700"' : ''}>` +
+      `<td>${x.r.model}${x.r.batch ? " (batch)" : ""}${x.c.overCliff ? ' <span class="note">long-context rate</span>' : ""}</td>` +
+      `<td>${fmtUSD(x.total)}</td><td>${rel(x)}</td>` +
+      `<td>${x.ph ? (x.ph === "peak" ? "peak" : "off-peak") : "flat"}</td></tr>`).join("") +
+    "</table>" +
+    `<p class="note">All ${all.length} models priced on <em>your</em> token mix and request count, ` +
+    "at whatever rate each vendor is charging this minute — the ones that bill by the clock are on " +
+    "their current side of the rate card, and the long-context cliff is applied wherever your prompt " +
+    `crosses it. Cheapest right now: <strong>${best.r.model}</strong> at ${fmtUSD(best.total)}` +
+    (base > 0 && best.r.id !== sel.id ? `, ${(base / best.total).toFixed(1)}\u00d7 under what you picked` : "") +
+    ". Cheapest is not best — check the rank column in " +
+    '<a href="https://xyzs996.github.io/llm-api-pricing/prices.html">the full table</a> before switching.</p>';
 }
 
 function buildPresets() {
