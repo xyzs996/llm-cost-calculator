@@ -40,9 +40,9 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 17 | 3.33% → 20.0% | StreamLake | GMICloud | **+54.7%** |
+| DeepSeek V4 Pro 0423 | 17 | 3.33% → 20.0% | Baidu | GMICloud | **+53.5%** |
 | GLM 5.1 | 16 | 10.0% → 50.42% | GMICloud | Chutes | **+45.2%** |
-| Kimi K2.7 Code | 15 | 18.82% → 25.37% | Inceptron | DeepInfra | **+19.2%** |
+| Kimi K2.7 Code | 15 | 18.82% → 28.36% | Inceptron | DeepInfra | **+30.6%** |
 | GLM 5.2 | 32 | 10.0% → 25.0% | Sail Research | DigitalOcean | **+3.1%** |
 
 The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
