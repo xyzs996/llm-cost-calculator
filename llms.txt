@@ -6,13 +6,14 @@ It holds no prices of its own. Every figure is read at load time from `data/pric
 
 ## What it computes that a rate card does not
 
-- [Peak/off-peak billing, live](https://xyzs996.github.io/llm-cost-calculator/): DeepSeek bills half price off-peak. Peak is Beijing 09:00-12:00 and 14:00-18:00, i.e. 01:00-04:00 and 06:00-10:00 UTC. Since 2026-08-23 the whole Beijing weekend is off-peak. The page shows which phase you are in right now, the price in the other phase, and how long until it changes.
-- [The long-context cliff](https://xyzs996.github.io/llm-cost-calculator/): several models switch to a long-context rate once the prompt crosses a threshold, and the switch is a cliff, not marginal — every token in that request bills at the long rate, including the ones below the threshold. One token past Gemini 3.1 Pro Preview's 200,000 threshold takes a bill from $0.2060 to $0.4090.
+- [Peak/off-peak billing, live](https://xyzs996.github.io/llm-cost-calculator/): DeepSeek bills half price off-peak. Peak is Beijing 09:00-12:00 and 14:00-18:00, i.e. 01:00-04:00 and 06:00-10:00 UTC. Since 2026-08-23 the whole Beijing weekend is off-peak, bounded 16:00 UTC Friday to 16:00 UTC Sunday. The page shows which phase you are in right now, the price in the other phase, and how long until it changes.
+- [The long-context cliff](https://xyzs996.github.io/llm-cost-calculator/): several models switch to a long-context rate once the prompt crosses a threshold, and the switch is a cliff, not marginal — every token in that request bills at the long rate, including the ones below the threshold. One token past GPT-5.5's 272,000 threshold reprices the whole request: cache reads $0.50 → $1.00, cache misses $5.00 → $10.00 per million, output $30.00 → $45.00.
 - [The agent token mix](https://xyzs996.github.io/llm-cost-calculator/): a coding agent re-reads its context every step, so 95.6% of the tokens it sends are cache reads, measured over 8.04B tokens. List input price is what every pricing table sorts by and it is not what an agent pays.
 
 ## Correctness
 
-- [Conformance vectors](https://github.com/xyzs996/deepseek-peak-offpeak-vectors): a dated test table for the peak/off-peak rule, CC0. `test/check.mjs` in this repo downloads that table rather than vendoring it, so a change there re-checks this page's clock. 18/18 passing.
+- [Conformance vectors](https://github.com/xyzs996/deepseek-peak-hours): a dated test table for the peak/off-peak rule, CC0. `test/check.mjs` in this repo downloads that table rather than vendoring it, so a change there re-checks this page's clock.
+- That table is also run against the peak predicate of nine published DeepSeek billing plugins, transcribed and pinned to a commit; as of 2026-08-24, three pass everything they can run and six still bill the weekend at double.
 - The weekend is bounded in Beijing time, not UTC: it runs 16:00Z Friday to 16:00Z Sunday. Both official peak windows sit clear of 16:00-24:00 UTC, so an implementation that reads the weekday off the unshifted instant passes every test written against the live schedule and only starts lying when a vendor moves a window past 16:00 UTC.
 
 ## Elsewhere
