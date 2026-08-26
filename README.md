@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 60 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-08-25**. The 12 cheapest of 60:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-08-26**. The 12 cheapest of 60:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -22,9 +22,9 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0226** | $678.78 | Gemini 3.7 Flash | $0.0375 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 `batch` | $0.06 | flat |
-| **$0.0292** | $876.95 | DeepSeek V4 Pro 0423 | $0.0483 | peak/off-peak |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
 | **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
+| **$0.0439** | $1,317.53 | DeepSeek V4 Pro 0423 | $0.0725 | peak/off-peak |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 | **$0.0461** | $1,383.66 | Gemini 3.5 Flash `batch` | $0.075 | flat |
 | **$0.0487** | $1,461.48 | GLM 4.6 | $0.10 | flat |
@@ -40,11 +40,11 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| Kimi K2.6 | 20 | 10.0% → 50.0% | Inceptron | Chutes | **+152.2%** |
-| DeepSeek V4 Pro 0423 | 17 | 3.33% → 20.0% | Baidu | GMICloud | **+53.0%** |
+| Kimi K2.6 | 20 | 10.0% → 50.0% | Inceptron | Chutes | **+119.5%** |
+| DeepSeek V4 Pro 0423 | 17 | 3.33% → 20.0% | Baidu | GMICloud | **+54.5%** |
 | GLM 5.1 | 16 | 10.0% → 50.42% | GMICloud | Chutes | **+45.2%** |
 | Kimi K2.7 Code | 15 | 18.82% → 28.36% | Inceptron | DeepInfra | **+30.6%** |
-| GLM 5.2 | 36 | 10.0% → 25.0% | Sail Research | DigitalOcean | **+3.1%** |
+| GLM 5.2 | 38 | 10.0% → 25.0% | Sail Research | DigitalOcean | **+3.1%** |
 
 The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
