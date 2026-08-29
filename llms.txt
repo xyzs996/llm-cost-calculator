@@ -1,6 +1,6 @@
 # LLM Cost Calculator
 
-> One HTML page that turns a token count into a bill for 55 coding-agent models, using a price table refreshed daily. https://xyzs996.github.io/llm-cost-calculator/
+> One HTML page that turns a token count into a bill for 56 coding-agent models, using a price table refreshed daily. https://xyzs996.github.io/llm-cost-calculator/
 
 It holds no prices of its own. Every figure is read at load time from `data/prices.json` in xyzs996/llm-api-pricing, so it cannot go stale separately from the table. Prices are catalogue prices from the OpenRouter model list; models that bill by the clock are additionally checked against the vendor's own pricing page, with the date of that check carried in the data.
 
@@ -18,7 +18,7 @@ It holds no prices of its own. Every figure is read at load time from `data/pric
 
 ## Elsewhere
 
-- [The full price table](https://xyzs996.github.io/llm-api-pricing/prices.html): all 55 models sortable, with the effective per-million cost under the measured agent mix.
+- [The full price table](https://xyzs996.github.io/llm-api-pricing/prices.html): all 56 models sortable, with the effective per-million cost under the measured agent mix.
 - [The machine-readable table](https://raw.githubusercontent.com/xyzs996/llm-api-pricing/main/data/prices.json): JSON, CC BY 4.0, refreshed daily. A CSV sits beside it.
 - [Field notes](https://xyzs996.github.io/llm-api-pricing/): write-ups on what these costs do to a small budget in practice, which is a different question from what the rate card says.
 
