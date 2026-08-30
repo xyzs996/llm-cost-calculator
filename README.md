@@ -13,16 +13,16 @@ whatever the table said last.
 
 ## What one request costs today, on all 56 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-08-29**. The 12 cheapest of 56:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-08-30**. The 12 cheapest of 56:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0113** | $339.39 | Gemini 3.7 Flash `batch` | $0.0187 | flat |
+| **$0.0211** | $631.89 | DeepSeek V4 Pro 0423 | $0.0348 | peak/off-peak |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 `batch` | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
-| **$0.0313** | $938.88 | DeepSeek V4 Pro 0423 | $0.0517 | peak/off-peak |
 | **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
@@ -42,7 +42,7 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 | --- | --- | --- | --- | --- | --- |
 | GLM 5.1 | 16 | 10.0% → 50.42% | Baidu | Chutes | **+45.0%** |
 | Kimi K2.6 | 20 | 10.0% → 50.0% | Baidu | Chutes | **+27.3%** |
-| Kimi K2.7 Code | 16 | 18.82% → 27.27% | Inceptron | DeepInfra | **+24.6%** |
+| Kimi K2.7 Code | 15 | 18.82% → 27.27% | Inceptron | DeepInfra | **+24.6%** |
 
 The other 4 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
