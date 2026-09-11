@@ -11,15 +11,16 @@ whatever the table said last.
 
 <!-- price-table: 每天从价目表生成,别手改这一段 -->
 
-## What one request costs today, on all 60 models
+## What one request costs today, on all 66 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-10**. The 12 cheapest of 60:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-11**. The 12 cheapest of 66:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
-| **$0.0029** | $87.69 | Solar Pro 4 | $0.006 | flat |
+| **$0.0088** | $263.07 | Solar Pro 4 | $0.018 | flat |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.7 Flash `batch` | $0.0375 | flat |
+| **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 `batch` | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
@@ -27,21 +28,21 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0407** | $1,221.82 | GLM 5.2 `batch` | $0.07 | flat |
-| **$0.0446** | $1,336.77 | GLM 5.2 | $0.091 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 
-`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 60 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
+`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 66 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
 The rows marked `peak/off-peak` bill by the clock, and the number above is the catalogue's single figure; the page applies whichever side is in force at the minute you ask, and tells you what waiting is worth. Long-context tiers are a cliff, not marginal pricing — the page re-rates the whole request the moment your prompt crosses the threshold.
 
 ## Same model, different seller
 
-A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **7** of the models in this table cannot be read as a single price (8 of the 60 rows, counting `batch` variants separately):
+A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **8** of the models in this table cannot be read as a single price (10 of the 66 rows, counting `batch` variants separately):
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 16 | 5.75% → 50.0% | DigitalOcean | StreamLake | **+71.6%** |
-| GLM 5.1 | 14 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
+| DeepSeek V4 Pro 0423 | 16 | 5.75% → 50.0% | DigitalOcean | Baidu | **+72.0%** |
+| GLM 5.1 | 14 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
+| GLM 5.3 | 28 | 10.0% → 23.2% | Morph | DeepInfra | **+33.9%** |
 
 The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
