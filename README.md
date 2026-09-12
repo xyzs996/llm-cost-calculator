@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 66 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-11**. The 12 cheapest of 66:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-12**. The 12 cheapest of 66:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -25,10 +25,10 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0292** | $876.89 | MiniMax M3 `batch` | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
 | **$0.0367** | $1,101.46 | Kimi K2.5 | $0.07 | flat |
+| **$0.0388** | $1,164.17 | DeepSeek V4 Pro 0423 | $0.0641 | peak/off-peak |
 | **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0407** | $1,221.82 | GLM 5.2 `batch` | $0.07 | flat |
-| **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 
 `$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 66 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
@@ -40,9 +40,9 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 16 | 5.75% → 50.0% | DigitalOcean | Baidu | **+72.0%** |
 | GLM 5.1 | 14 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| GLM 5.3 | 28 | 10.0% → 23.2% | Morph | DeepInfra | **+33.9%** |
+| Kimi K2.6 | 21 | 10.0% → 50.0% | Baidu | Chutes | **+39.4%** |
+| GLM 5.3 | 26 | 10.0% → 21.85% | Inceptron | DeepInfra | **+15.3%** |
 
 The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
