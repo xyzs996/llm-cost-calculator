@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 66 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-15**. The 12 cheapest of 66:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-16**. The 12 cheapest of 66:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -42,7 +42,7 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 | --- | --- | --- | --- | --- | --- |
 | Kimi K2.6 | 21 | 10.0% → 50.0% | Inceptron | Chutes | **+56.0%** |
 | GLM 5.1 | 13 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
-| GLM 5.3 | 29 | 10.0% → 27.37% | Reka | DeepInfra | **+12.4%** |
+| GLM 5.3 | 29 | 10.0% → 20.0% | Reka | DeepInfra | **+12.4%** |
 
 The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
