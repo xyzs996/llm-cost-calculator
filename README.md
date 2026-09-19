@@ -13,11 +13,12 @@ whatever the table said last.
 
 ## What one request costs today, on all 66 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-18**. The 12 cheapest of 66:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-19**. The 12 cheapest of 66:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0088** | $263.07 | Solar Pro 4 | $0.018 | flat |
+| **$0.0213** | $639.53 | DeepSeek V4 Pro 0423 | $0.0352 | peak/off-peak |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.7 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
@@ -28,7 +29,6 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0391** | $1,174.40 | GLM 4.7 | $0.08 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0407** | $1,221.82 | GLM 5.2 `batch` | $0.07 | flat |
-| **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 
 `$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 66 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
@@ -40,12 +40,11 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| GLM 5.1 | 13 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
-| Kimi K2.6 | 21 | 10.0% → 50.0% | Baidu | Chutes | **+31.6%** |
-| GLM 5.3 | 33 | 10.0% → 20.0% | Reka | InferenceNet | **+12.4%** |
-| DeepSeek V4 Pro 0423 | 16 | 5.75% → 20.0% | StreamLake | Baidu | **+0.2%** |
+| GLM 5.1 | 13 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
+| GLM 5.3 | 34 | 10.0% → 20.0% | Baidu | Morph | **+9.8%** |
+| Kimi K2.6 | 21 | 10.0% → 50.0% | Baidu | Chutes | **+4.8%** |
 
-The other 4 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
