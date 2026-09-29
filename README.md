@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 67 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-28**. The 12 cheapest of 67:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-29**. The 12 cheapest of 67:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -40,12 +40,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| GLM 5.2 | 31 | 10.0% → 63.85% | Relace | Baidu | **+135.8%** |
-| Kimi K2.6 | 18 | 10.0% → 50.0% | Inceptron | Chutes | **+92.1%** |
-| GLM 5.3 | 39 | 10.0% → 88.14% | Morph | Reka | **+88.8%** |
-| GLM 5.1 | 13 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| Kimi K2.7 Code | 13 | 18.82% → 27.43% | Inceptron | DeepInfra | **+24.4%** |
-| Kimi K3 | 19 | 10.0% → 30.0% | InferenceNet | Morph | **+21.0%** |
+| GLM 5.3 | 39 | 10.0% → 100.0% | Relace | Reka | **+143.9%** |
+| DeepSeek V4 Pro 0423 | 15 | 5.75% → 100.0% | Relace | Baidu | **+116.1%** |
+| Kimi K2.6 | 18 | 10.0% → 50.0% | Inceptron | Chutes | **+56.0%** |
+| GLM 5.1 | 13 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
+| GLM 5.2 | 31 | 10.0% → 100.0% | Wafer | Decart | **+52.4%** |
+| Kimi K3 | 20 | 10.0% → 100.0% | Relace | Makora | **+35.8%** |
 
 The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
