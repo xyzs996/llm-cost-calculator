@@ -13,22 +13,22 @@ whatever the table said last.
 
 ## What one request costs today, on all 67 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-09-30**. The 12 cheapest of 67:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-01**. The 12 cheapest of 67:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0088** | $263.07 | Solar Pro 4 | $0.018 | flat |
 | **$0.0095** | $284.05 | MiMo-V2.6-Pro | $0.0036 | flat |
+| **$0.0105** | $316.21 | DeepSeek V4 Pro 0423 | $0.0174 | peak/off-peak |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.7 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
 | **$0.0367** | $1,101.46 | Kimi K2.5 | $0.07 | flat |
-| **$0.0395** | $1,185.78 | DeepSeek V4 Pro 0423 | $0.0653 | peak/off-peak |
+| **$0.0372** | $1,114.84 | Kimi K2.6 | $0.0731 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
-| **$0.0453** | $1,357.56 | Gemini 3.7 Flash | $0.075 | flat |
 
 `$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 67 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
@@ -40,12 +40,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 16 | 5.75% → 100.0% | Relace | Baidu | **+693.4%** |
-| GLM 5.3 | 39 | 10.0% → 130.06% | Relace | Baidu | **+111.2%** |
-| Kimi K2.6 | 18 | 10.0% → 50.0% | Inceptron | Chutes | **+84.1%** |
+| DeepSeek V4 Pro 0423 | 16 | 5.75% → 100.0% | Relace | Baidu | **+693.6%** |
+| GLM 5.2 | 33 | 10.0% → 254.55% | Morph | Baidu | **+518.3%** |
+| GLM 5.3 | 39 | 10.0% → 293.33% | Morph | Baidu | **+405.3%** |
+| Kimi K3 | 22 | 10.0% → 100.0% | Relace | Makora | **+123.1%** |
 | GLM 5.1 | 13 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| GLM 5.2 | 32 | 10.0% → 100.0% | Relace | DeepInfra | **+48.7%** |
-| Kimi K3 | 22 | 10.0% → 125.9% | Sail Research | Makora | **+32.8%** |
+| Kimi K2.6 | 18 | 10.0% → 50.0% | Baidu | Chutes | **+21.6%** |
 
 The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
