@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 67 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-01**. The 12 cheapest of 67:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-02**. The 12 cheapest of 67:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -40,14 +40,14 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 16 | 5.75% → 100.0% | Relace | Baidu | **+693.6%** |
-| GLM 5.2 | 33 | 10.0% → 254.55% | Morph | Baidu | **+518.3%** |
-| GLM 5.3 | 39 | 10.0% → 293.33% | Morph | Baidu | **+405.3%** |
-| Kimi K3 | 22 | 10.0% → 100.0% | Relace | Makora | **+123.1%** |
-| GLM 5.1 | 13 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
+| GLM 5.2 | 32 | 10.0% → 100.0% | Relace | Baidu | **+343.5%** |
+| Kimi K3 | 22 | 10.0% → 57.55% | InferenceNet | Makora | **+172.7%** |
+| GLM 5.3 | 39 | 10.0% → 79.99% | Relace | Baidu | **+163.1%** |
+| GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
 | Kimi K2.6 | 18 | 10.0% → 50.0% | Baidu | Chutes | **+21.6%** |
+| Kimi K2.7 Code | 11 | 20.0% → 26.82% | Inceptron | StreamLake | **+20.2%** |
 
-The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
