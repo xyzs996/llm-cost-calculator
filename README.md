@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 67 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-02**. The 12 cheapest of 67:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-03**. The 12 cheapest of 67:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -26,9 +26,9 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
 | **$0.0367** | $1,101.46 | Kimi K2.5 | $0.07 | flat |
-| **$0.0372** | $1,114.84 | Kimi K2.6 | $0.0731 | flat |
 | **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
+| **$0.0453** | $1,357.56 | Gemini 3.7 Flash | $0.075 | flat |
 
 `$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 67 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
@@ -40,12 +40,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| GLM 5.2 | 32 | 10.0% → 100.0% | Relace | Baidu | **+343.5%** |
-| Kimi K3 | 22 | 10.0% → 57.55% | InferenceNet | Makora | **+172.7%** |
-| GLM 5.3 | 39 | 10.0% → 79.99% | Relace | Baidu | **+163.1%** |
-| GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| Kimi K2.6 | 18 | 10.0% → 50.0% | Baidu | Chutes | **+21.6%** |
+| DeepSeek V4 Pro 0423 | 16 | 7.69% → 100.0% | Relace | StreamLake | **+717.9%** |
+| Kimi K3 | 23 | 10.0% → 80.81% | Relace | Makora | **+61.3%** |
+| Kimi K2.6 | 18 | 10.0% → 50.0% | Inceptron | Chutes | **+56.0%** |
+| GLM 5.1 | 12 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
 | Kimi K2.7 Code | 11 | 20.0% → 26.82% | Inceptron | StreamLake | **+20.2%** |
+| GLM 5.2 | 33 | 10.0% → 100.0% | Relace | InferenceNet | **+15.7%** |
 
 The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
