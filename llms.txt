@@ -18,8 +18,8 @@ It holds no prices of its own. Every figure is read at load time from `data/pric
 
 ## Elsewhere
 
-- [The full price table](https://xyzs996.github.io/llm-api-pricing/prices.html): all 67 models sortable, with the effective per-million cost under the measured agent mix.
+- [The full price table](https://spectracodeai.com/prices.html): all 67 models sortable, with the effective per-million cost under the measured agent mix.
 - [The machine-readable table](https://raw.githubusercontent.com/xyzs996/llm-api-pricing/main/data/prices.json): JSON, CC BY 4.0, refreshed daily. A CSV sits beside it.
-- [Field notes](https://xyzs996.github.io/llm-api-pricing/): write-ups on what these costs do to a small budget in practice, which is a different question from what the rate card says.
+- [Field notes](https://spectracodeai.com/): write-ups on what these costs do to a small budget in practice, which is a different question from what the rate card says.
 
 MIT. Corrections welcome: https://github.com/xyzs996/llm-cost-calculator/issues/new
