@@ -11,40 +11,40 @@ whatever the table said last.
 
 <!-- price-table: 每天从价目表生成,别手改这一段 -->
 
-## What one request costs today, on all 67 models
+## What one request costs today, on all 68 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-09**. The 12 cheapest of 67:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-10**. The 12 cheapest of 68:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0088** | $263.07 | Solar Pro 4 | $0.018 | flat |
 | **$0.0095** | $284.05 | MiMo-V2.6-Pro | $0.0036 | flat |
-| **$0.015** | $450.34 | DeepSeek V4 Pro 0423 | $0.0248 | peak/off-peak |
-| **$0.0211** | $634.17 | GLM 5.3 | $0.039 | flat |
+| **$0.0147** | $439.79 | DeepSeek V4 Pro 0423 | $0.0242 | peak/off-peak |
+| **$0.0207** | $622.21 | GLM 5.3 | $0.038 | flat |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.7 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
-| **$0.0284** | $852.60 | GLM 5.2 | $0.059 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
-| **$0.0367** | $1,101.46 | Kimi K2.5 | $0.07 | flat |
-| **$0.0396** | $1,189.06 | GLM 4.6 | $0.08 | flat |
+| **$0.0317** | $950.04 | GLM 5.2 | $0.059 | flat |
+| **$0.0439** | $1,316.59 | Kimi K2.6 | $0.0875 | flat |
+| **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 
-`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 67 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
+`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 68 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
 The rows marked `peak/off-peak` bill by the clock, and the number above is the catalogue's single figure; the page applies whichever side is in force at the minute you ask, and tells you what waiting is worth. Long-context tiers are a cliff, not marginal pricing — the page re-rates the whole request the moment your prompt crosses the threshold.
 
 ## Same model, different seller
 
-A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **9** of the models in this table cannot be read as a single price (11 of the 67 rows, counting `batch` variants separately):
+A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **9** of the models in this table cannot be read as a single price (11 of the 68 rows, counting `batch` variants separately):
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4 Pro 0423 | 15 | 7.69% → 74.75% | Relace | Baidu | **+530.8%** |
-| Kimi K2.6 | 17 | 10.0% → 50.0% | Inceptron | Chutes | **+89.6%** |
+| Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
 | GLM 5.1 | 12 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
+| Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+30.1%** |
 | Kimi K2.7 Code | 11 | 20.0% → 26.82% | Inceptron | StreamLake | **+20.2%** |
-| Kimi K3 | 25 | 10.0% → 100.0% | Relace | Decart | **+19.0%** |
+| Kimi K3 | 25 | 10.0% → 100.0% | Wafer | Makora | **+16.4%** |
 | MiniMax M3 | 12 | 10.0% → 21.74% | CoreWeave | GMICloud | **+2.6%** |
 
 The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
