@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 68 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-12**. The 12 cheapest of 68:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-13**. The 12 cheapest of 68:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -40,12 +40,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| Kimi K3 | 25 | 10.0% → 100.0% | InferenceNet | Makora | **+98.7%** |
+| Kimi K3 | 25 | 10.0% → 100.0% | InferenceNet | Chutes | **+109.0%** |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
-| GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+30.1%** |
+| GLM 5.1 | 12 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
+| Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+40.8%** |
 | Kimi K2.7 Code | 11 | 20.0% → 26.82% | Inceptron | StreamLake | **+20.2%** |
-| GLM 5.3 | 41 | 10.0% → 109.09% | Morph | InferenceNet | **+8.0%** |
+| GLM 5.3 | 42 | 10.0% → 109.09% | Morph | InferenceNet | **+8.0%** |
 
 The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
