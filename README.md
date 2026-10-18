@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 68 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-17**. The 12 cheapest of 68:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-18**. The 12 cheapest of 68:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -25,7 +25,7 @@ One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160
 | **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
-| **$0.0367** | $1,100.81 | GLM 5.3 | $0.078 | flat |
+| **$0.034** | $1,020.77 | GLM 5.3 | $0.078 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.6 Flash | $0.075 | flat |
 | **$0.0453** | $1,357.56 | Gemini 3.7 Flash | $0.075 | flat |
 | **$0.0461** | $1,383.66 | Gemini 3.5 Flash `batch` | $0.075 | flat |
@@ -42,12 +42,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 | --- | --- | --- | --- | --- | --- |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
 | GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
-| Kimi K3 | 26 | 10.0% → 100.0% | Relace | Sail Research | **+43.3%** |
 | Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+38.0%** |
 | GLM 5.2 | 33 | 10.0% → 100.0% | Wafer | Baidu | **+23.9%** |
 | Kimi K2.7 Code | 12 | 20.0% → 26.82% | Inceptron | StreamLake | **+20.2%** |
+| GLM 5.3 | 45 | 9.29% → 100.0% | Relace | Morph | **+11.5%** |
 
-The other 2 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
