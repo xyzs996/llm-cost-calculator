@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 76 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-21**. The 12 cheapest of 76:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-22**. The 12 cheapest of 76:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -40,14 +40,14 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
+| DeepSeek V4.1 Flash 1017 | 30 | 2.0% → 11.43% | OpenInference | DeepInfra | **+95.2%** |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
-| GLM 5.1 | 12 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
+| GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
 | Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+43.5%** |
+| Kimi K3 | 28 | 10.0% → 100.0% | Wafer | InferenceNet | **+21.3%** |
 | Kimi K2.7 Code | 12 | 15.79% → 26.82% | Inceptron | StreamLake | **+20.2%** |
-| GLM 5.3 | 47 | 10.0% → 100.0% | Wafer | Morph | **+15.4%** |
-| Kimi K3 | 28 | 10.0% → 100.0% | Wafer | InferenceNet | **+11.8%** |
 
-The other 4 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
