@@ -13,22 +13,22 @@ whatever the table said last.
 
 ## What one request costs today, on all 76 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-25**. The 12 cheapest of 76:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-10-26**. The 12 cheapest of 76:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0043** | $128.57 | DeepSeek V4.1 Flash 1017 | $0.003 | flat |
 | **$0.0095** | $284.05 | MiMo-V2.6-Pro | $0.0036 | flat |
-| **$0.0105** | $316.21 | DeepSeek V4 Pro 0423 | $0.0174 | peak/off-peak |
 | **$0.0146** | $438.44 | Solar Pro 4 | $0.03 | flat |
 | **$0.0213** | $638.99 | GLM 5.2 | $0.033 | flat |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.7 Flash `batch` | $0.0375 | flat |
 | **$0.0226** | $678.78 | Gemini 3.8 Flash `batch` | $0.0375 | flat |
+| **$0.0291** | $873.61 | GLM 5.3 | $0.0689 | flat |
 | **$0.0292** | $876.89 | MiniMax M3 | $0.06 | flat |
 | **$0.0307** | $922.44 | Gemini 3 Flash Preview | $0.05 | flat |
-| **$0.0327** | $982.49 | GLM 5.3 | $0.078 | flat |
 | **$0.0412** | $1,236.24 | Claude Sonnet 5.5 `batch` | $0.05 | flat |
+| **$0.0412** | $1,236.24 | Gemini 4 Argon `batch` | $0.05 | flat |
 
 `$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 76 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
@@ -40,14 +40,13 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4.1 Flash 1017 | 34 | 2.0% → 100.0% | OpenInference | DeepInfra | **+195.0%** |
+| DeepSeek V4.1 Flash 1017 | 35 | 2.0% → 75.0% | OpenInference | DeepInfra | **+195.0%** |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
-| GLM 5.1 | 12 | 10.0% → 50.42% | Baidu | Chutes | **+53.9%** |
+| GLM 5.1 | 12 | 10.0% → 50.42% | StreamLake | Chutes | **+54.1%** |
 | Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+43.5%** |
-| GLM 5.2 | 35 | 10.0% → 100.0% | Wafer | Baidu | **+23.9%** |
 | Kimi K2.7 Code | 12 | 15.79% → 22.35% | Inceptron | StreamLake | **+3.7%** |
 
-The other 3 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
