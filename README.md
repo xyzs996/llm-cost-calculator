@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 78 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-02**. The 12 cheapest of 78:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-03**. The 12 cheapest of 78:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -40,14 +40,13 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| Kimi K3 | 29 | 10.0% → 100.0% | Wafer | Sail Research | **+115.0%** |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
+| Kimi K3 | 30 | 10.0% → 100.0% | Wafer | Sail Research | **+46.2%** |
 | Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+42.7%** |
-| DeepSeek V4.1 Flash 1017 | 43 | 2.0% → 16.0% | OpenInference | DeepInfra | **+25.1%** |
 | GLM 5.3 | 47 | 10.0% → 100.0% | Wafer | Baidu | **+14.3%** |
 | DeepSeek V4 Pro 0423 | 15 | 7.69% → 27.78% | StreamLake | Baidu | **+0.2%** |
 
-The other 5 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 6 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
