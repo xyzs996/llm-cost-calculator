@@ -13,14 +13,14 @@ whatever the table said last.
 
 ## What one request costs today, on all 83 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-09**. The 12 cheapest of 83:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-10**. The 12 cheapest of 83:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0012** | $35.29 | DeepSeek V4.1 Flash 1017 `batch` | $0.002 | flat |
 | **$0.0026** | $77.71 | DeepSeek V4.1 Flash 1017 | $0.005 | flat |
 | **$0.0095** | $284.05 | MiMo-V2.6-Pro | $0.0036 | flat |
-| **$0.0099** | $296.95 | GLM 5.2 | $0.005 | flat |
+| **$0.0115** | $344.82 | GLM 5.2 | $0.009 | flat |
 | **$0.0146** | $438.44 | Solar Pro 4 | $0.03 | flat |
 | **$0.0218** | $654.19 | MiniMax M3 `batch` | $0.0448 | flat |
 | **$0.0226** | $678.78 | Gemini 3.6 Flash `batch` | $0.0375 | flat |
@@ -40,11 +40,11 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4.1 Flash 1017 | 49 | 2.0% → 83.33% | Relace | Particle AI | **+103.8%** |
+| DeepSeek V4 Pro 0423 | 13 | 7.69% → 27.78% | Relace | StreamLake | **+132.3%** |
+| DeepSeek V4.1 Flash 1017 | 50 | 2.0% → 83.33% | Relace | Particle AI | **+103.8%** |
 | Kimi K2.5 | 4 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
-| Kimi K2.6 | 16 | 10.0% → 50.0% | Baidu | Chutes | **+42.7%** |
-| Kimi K3 | 30 | 10.0% → 99.34% | Wafer | Wafer | **+20.6%** |
-| DeepSeek V4 Pro 0423 | 14 | 7.69% → 27.78% | StreamLake | Baidu | **+0.2%** |
+| Kimi K3 | 29 | 10.0% → 99.35% | Wafer | Wafer | **+21.2%** |
+| Kimi K3.1 Pro | 24 | 5.0% → 100.0% | Relace | Wafer | **+2.9%** |
 
 The other 7 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
