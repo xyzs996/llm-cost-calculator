@@ -11,43 +11,43 @@ whatever the table said last.
 
 <!-- price-table: 每天从价目表生成,别手改这一段 -->
 
-## What one request costs today, on all 103 models
+## What one request costs today, on all 106 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-18**. The 12 cheapest of 103:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-19**. The 12 cheapest of 106:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
 | **$0.0019** | $57.23 | DeepSeek V4.1 Flash 1017 `batch` | $0.003 | flat |
+| **$0.003** | $88.76 | Solar Mini 4 | $0.005 | flat |
 | **$0.003** | $90.50 | Claude Haiku 5.5 `batch` | $0.005 | flat |
-| **$0.005** | $149.75 | DeepSeek V4.1 Flash 1017 | $0.01 | flat |
+| **$0.0043** | $128.57 | DeepSeek V4.1 Flash 1017 | $0.003 | flat |
+| **$0.0043** | $128.89 | GLM 5.3 Flash `batch` | $0.01 | flat |
 | **$0.006** | $181.01 | Claude Haiku 5.5 | $0.01 | flat |
 | **$0.0095** | $284.05 | MiMo-V2.6-Pro | $0.0036 | flat |
-| **$0.0103** | $308.92 | GLM 5.2 | $0.006 | flat |
 | **$0.0107** | $320.20 | Nemotron 3.5 Super VL | $0.02 | flat |
+| **$0.0145** | $434.96 | GLM 5.3 Flash | $0.03 | flat |
 | **$0.0146** | $438.44 | Solar Pro 4 | $0.03 | flat |
 | **$0.0163** | $488.19 | Hy4 | $0.021 | flat |
 | **$0.0173** | $517.88 | Muse Glimmer 30B `batch` | $0.032 | flat |
-| **$0.0199** | $596.77 | Step 3.7 Flash | $0.04 | flat |
-| **$0.0213** | $640.39 | Beam 1.0 501B A23B | $0.04 | flat |
 
-`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 103 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
+`$ per month` is that request **1,000× a day for 30 days** — change either number, or your own cache-hit share, and the page re-prices all 106 side by side: <https://xyzs996.github.io/llm-cost-calculator/>
 
 The rows marked `peak/off-peak` bill by the clock, and the number above is the catalogue's single figure; the page applies whichever side is in force at the minute you ask, and tells you what waiting is worth. Long-context tiers are a cliff, not marginal pricing — the page re-rates the whole request the moment your prompt crosses the threshold.
 
 ## Same model, different seller
 
-A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **14** of the models in this table cannot be read as a single price (19 of the 103 rows, counting `batch` variants separately):
+A catalogue reports one price per model. That price is whichever seller is cheapest **on the input column** this minute — not the vendor's own rate. Open-weight models are resold by many hosts, and a cache read can cost one host several times what it costs another. **16** of the models in this table cannot be read as a single price (23 of the 106 rows, counting `batch` variants separately):
 
 | Model | Sellers | Cache read, low → high | Sorting by input picks | Cheapest on the bill | Overpay |
 | --- | --- | --- | --- | --- | --- |
-| DeepSeek V4.1 Flash 1017 | 50 | 2.0% → 37.5% | Wafer | PrimeIntellect | **+104.5%** |
+| DeepSeek V4.1 Flash 1017 | 50 | 2.0% → 33.33% | Particle AI | Ambient | **+249.4%** |
+| GLM 5.3 Flash | 42 | 12.86% → 98.46% | Relace | Darkbloom | **+108.6%** |
 | Kimi K2.5 | 3 | 16.67% → 40.82% | AtlasCloud | Novita | **+78.6%** |
 | Kimi K2.6 | 17 | 10.0% → 50.0% | Baidu | Chutes | **+42.7%** |
 | Kimi K3.1 Pro | 27 | 5.0% → 83.23% | Relace | Decart | **+24.5%** |
-| Kimi K3 | 28 | 10.0% → 99.35% | Wafer | Wafer | **+21.2%** |
-| GLM 5.2 | 33 | 10.0% → 100.0% | Relace | Wafer | **+15.5%** |
+| Kimi K3 | 29 | 10.0% → 99.35% | Wafer | Wafer | **+21.2%** |
 
-The other 6 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 8 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
