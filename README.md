@@ -13,7 +13,7 @@ whatever the table said last.
 
 ## What one request costs today, on all 110 models
 
-One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-26**. The 12 cheapest of 110:
+One coding-agent request — **382,560 cached input + 16,280 fresh input + 1,160 output** tokens, the measured 95.6% cache-hit mix — priced against the catalogue read **2026-11-27**. The 12 cheapest of 110:
 
 | $ per request | $ per month | Model | $ cache read | Clock |
 | --- | --- | --- | --- | --- |
@@ -42,12 +42,12 @@ A catalogue reports one price per model. That price is whichever seller is cheap
 | --- | --- | --- | --- | --- | --- |
 | GLM 5.2 | 29 | 10.0% → 1884.06% | Relace | Wafer | **+413.5%** |
 | GLM 5.3 Flash | 42 | 12.86% → 98.46% | Relace | Pareto Inference | **+235.2%** |
+| DeepSeek V4.1 Flash 1017 | 56 | 2.0% → 27.78% | Wafer | Ambient | **+152.2%** |
+| DeepSeek V4 Pro 0423 | 12 | 7.69% → 22.8% | Relace | Baidu | **+107.4%** |
 | Kimi K3 | 28 | 10.0% → 99.35% | Wafer | KT | **+50.1%** |
 | Kimi K3.1 Pro | 33 | 5.0% → 83.23% | Relace | Decart | **+20.5%** |
-| DeepSeek V4.1 Flash 1017 | 57 | 2.0% → 27.78% | Particle AI | Tenstorrent | **+16.2%** |
-| Beam 1.0 501B A23B | 5 | 10.0% → 20.0% | Nebius | CoreWeave | **+14.1%** |
 
-The other 9 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
+The other 8 spread just as wide, but today the input column happens to land on the host that is also cheapest on the bill. That is luck, and it is re-drawn every time a seller reprices.
 
 `Overpay` is what routing on the visible column costs you against routing on the bill, at the same cache-hit mix as the table above. Closed-weight models do not appear here: their resellers all bill a cache read at the vendor's mandated fraction of their own input price, so the row really is one price. Every figure comes from OpenRouter's per-model endpoint list and is refreshed with the rest of the table.
 
